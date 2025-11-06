@@ -299,7 +299,7 @@ const ListShareSocial = ({
           "SocialShareList",
           "flex items-center justify-center",
           "absolute",
-          "lg:top-[-53px]",
+          "lg:top-[-53px] z-30",
 
           "lg:left-auto",
           withMobileClasses ? "left-[30px]" : "left-auto",

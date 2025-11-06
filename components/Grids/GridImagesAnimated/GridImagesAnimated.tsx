@@ -77,7 +77,7 @@ const GridImagesAnimated = ({
           // 'w-[80%]',
 
           "w-full lg:w-auto",
-          "max-h-[200px] sm:max-h-[164px]  h-full lg:max-h-[550px]",
+          "max-h-[200px] sm:max-h-[164px]  h-full min-[1024px]:max-h-[206px] lg:max-h-[550px]",
           "aspect-[3/2]"
         )}
       >
