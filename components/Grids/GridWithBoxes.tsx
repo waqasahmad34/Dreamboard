@@ -94,6 +94,7 @@ const GridWithBoxes = ({
               alt={`styled_product_url`}
               width={400}
               height={400}
+              loading="eager"
               className={cn("object-cover", "h-full", "w-full", "object-left")}
             />
             <BoxShadow className="" />
@@ -292,6 +293,7 @@ const GridWithBoxes = ({
           <Image
             src={data.final_room_url}
             alt={`final_room_url`}
+            loading="eager"
             fill
             className="h-full w-full object-cover object-left"
           />
