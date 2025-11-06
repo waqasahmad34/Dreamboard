@@ -233,10 +233,10 @@ const SocialReactions = ({
               "absolute",
               "z-[50]",
 
-              "top-[-0px] lg:top-[-60px]",
+              "top-[-0px] md:top-[-20px] lg:top-[-60px]",
               "lg:right-1/2",
               "lg:translate-x-1/2",
-              "left-[30px] lg:left-auto",
+              "left-[30px] md:left-auto",
 
               "rounded-[16px]",
               "bg-white",
@@ -290,10 +290,10 @@ const SocialReactions = ({
               "absolute",
               "z-[50]",
 
-              "top-[-0px] lg:top-[-60px]",
+              "top-[-0px] md:top-[-20px] lg:top-[-60px]",
               "lg:translate-x-1/2",
               "lg:right-1/2",
-              "left-[30px] lg:left-auto",
+              "left-[30px] md:left-auto",
 
               "rounded-[16px]",
               "bg-white",
