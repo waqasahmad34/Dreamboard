@@ -80,7 +80,7 @@ const ButtonComments = ({ setTab, className }: TComponentProps) => {
         <button
           type="button"
           className={cn(
-            "ButtonComments",
+            "ButtonComments relative",
             "bg-white",
             "p-[10px]",
             "rounded-[16px]",
@@ -100,7 +100,7 @@ const ButtonComments = ({ setTab, className }: TComponentProps) => {
           />
           <BadgeReaction
             count={commentsCount}
-            className="bg-white text-black"
+            className="bg-white text-black shadow-md"
           />
           <span className="sr-only">Comments</span>
         </button>

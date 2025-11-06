@@ -77,7 +77,7 @@ const GridImagesAnimated = ({
           // 'w-[80%]',
 
           "w-full lg:w-auto",
-          "max-h-[200px] sm:max-h-[164px]  h-full min-[1024px]:max-h-[206px] lg:max-h-[550px]",
+          " h-full max-h-[206px] lg:max-h-[550px]",
           "aspect-[3/2]"
         )}
       >
@@ -94,7 +94,7 @@ const GridImagesAnimated = ({
           className={cn(
             "ReactionsAndComments",
             "absolute z-[30]",
-            "top-[10px] sm:top-1/2 sm:translate-y-[-50%]",
+            "top-[24px] sm:top-1/2 sm:translate-y-[-50%]",
             "lg:top-auto lg:translate-y-0",
             "lg:bottom-[10px]",
             "left-[10px]",
