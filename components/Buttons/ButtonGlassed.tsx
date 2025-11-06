@@ -16,7 +16,7 @@ const ButtonGlassed = React.forwardRef<HTMLButtonElement, TComponentProps>(
           "bg-white backdrop-blur-[16px]",
           "p-[10px]",
           "rounded-[16px]",
-          "hover:scale-105",
+          "hover:scale-105 border-none outline-none",
           "hover:bg-white/50",
           "transition-all duration-300",
           "cursor-pointer",

@@ -90,6 +90,8 @@ const Comments = ({
           "grow",
           "space-y-4 pr-[5px]",
           "overflow-x-hidden",
+          "overflow-y-scroll",
+          "scrollbar-rounded-track",
           "overflow-y-scroll"
           // 'overflow-x-visible',
           // 'max-w-[217px]',
