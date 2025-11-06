@@ -174,7 +174,7 @@ const SocialReactions = ({
         className={cn(
           "BadgeReaction",
           "absolute",
-          "z-[10]",
+          "z-[30]",
           "top-[-12px] right-[-8px]",
           "flex items-center justify-center",
           "h-[22px] w-[22px]",
@@ -209,6 +209,7 @@ const SocialReactions = ({
             "group",
             "relative",
             "z-[1]",
+            "hover:z-[20]",
             "bg-white",
             "rounded-[16px]",
             "hover:scale-105",
@@ -230,7 +231,7 @@ const SocialReactions = ({
           <div
             className={cn(
               "absolute",
-              "z-[101]",
+              "z-[50]",
 
               "top-[-0px] lg:top-[-60px]",
               "lg:right-1/2",
@@ -265,6 +266,8 @@ const SocialReactions = ({
           className={cn(
             "group",
             "relative",
+            "z-[1]",
+            "hover:z-[20]",
             "bg-white",
             "p-[10px]",
             "rounded-[16px]",
@@ -284,7 +287,8 @@ const SocialReactions = ({
           <span className="sr-only">Dislike</span>
           <div
             className={cn(
-              "absolute z-[10]",
+              "absolute",
+              "z-[50]",
 
               "top-[-0px] lg:top-[-60px]",
               "lg:translate-x-1/2",

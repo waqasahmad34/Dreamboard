@@ -269,8 +269,10 @@ const ListShareSocial = ({
       className={cn(
         "ListShareSocial",
         "flex items-center justify-center",
-        "transition-all duration-300 hover:scale-110 hover:bg-white/50",
+        "transition-all duration-300 hover:scale-105 hover:bg-white",
         "relative",
+        "z-[1]",
+        "hover:z-[20]",
         "p-[10px]",
         "bg-white",
         "rounded-[16px]",
@@ -299,7 +301,7 @@ const ListShareSocial = ({
           "SocialShareList",
           "flex items-center justify-center",
           "absolute",
-          "lg:top-[-53px] z-30",
+          "lg:top-[-53px] z-50",
 
           "lg:left-auto",
           withMobileClasses ? "left-[30px]" : "left-auto",
