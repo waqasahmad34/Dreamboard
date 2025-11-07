@@ -14,6 +14,7 @@ import TitleGold from '@/components/Titles/TitleGold';
 import cn from '@/utils/cn';
 import ItemCombination from './ItemCombination/ItemCombination';
 import SkeletonGrid from './SkeletonGrid';
+import StickyNeighborSwatches from './StickyNeighborSwatches';
 
 interface StaticData {
   results: any[];
@@ -29,8 +30,8 @@ interface ListCombinationsProps {
   staticError?: string | null;
   fallbackSessionId?: string;
   combinationMetadataFetched?: Record<string, any>;
-  productsMetadataArr?: Record<string, any>;
-  swatchesMetadataArr?: Record<string, any>;
+  productsMetadataArr?: Record<string, any>[];
+  swatchesMetadataArr?: Record<string, any>[];
 }
 
 const ListCombinations = ({
@@ -191,6 +192,8 @@ const ListCombinations = ({
 
   // const originalRoom = staticData?.original_files?.rooms[0];
 
+  // Side sticky neighbor swatches are handled by the dedicated component
+
   // Show loading if we don't have static data
   if (!staticData) {
     return <SkeletonGrid />;
@@ -257,8 +260,15 @@ const ListCombinations = ({
 
         {/* Mood Board Grid Section */}
         {results && results.length > 0 && (
-          <div className="mb-12 sm:pt-[50px] pt-[25px]">
-            <div className="grid grid-cols-1 gap-10 sm:gap-14 md:gap-20 lg:gap-[100px] xl:gap-[150px]">
+          <div className="mb-12 sm:pt-[50px] pt-[25px] relative">
+            {/* Sticky swatches */}
+            <StickyNeighborSwatches
+              results={results || []}
+              swatchesMetadataArr={swatchesMetadataArr}
+              originalSwatches={originalSwatches}
+            />
+
+            <div className="grid grid-cols-1 gap-10 sm:gap-14 md:gap-20 lg:gap-[100px] xl:gap-[150px]" id="sticky-swatches-container">
               {results
                 .filter(
                   (combination: any) =>
