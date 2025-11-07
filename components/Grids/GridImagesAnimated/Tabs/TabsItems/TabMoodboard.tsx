@@ -97,7 +97,7 @@ const TabMoodboard = ({
             "w-[calc(50%-10px)] lg:w-full",
             "max-h-[200px] h-full",
             "sm:max-h-[400px]",
-            "lg:min-h-auto",
+            " lg:min-h-auto",
             "lg:aspect-[2/3]"
           )}
           initial={{ opacity: 0, x: 100, scale: 0.95 }}

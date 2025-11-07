@@ -334,7 +334,7 @@ const Banner4CardStacked = ({
                 <span
                   className={cn(
                     "font-bold uppercase tracking-[5px]",
-                    "text-[6px] sm:text-[8px] lg:text-[25px]",
+                    "text-[8px] min-[550px]:text-[14px] md:text-[16px] lg:text-[25px]",
                     "mb-[10px] lg:mb-[50px]",
                     "text-center"
                   )}
@@ -346,7 +346,7 @@ const Banner4CardStacked = ({
                     "font-es-wf",
                     "!leading-none",
                     "font-[100]",
-                    "text-[22px] sm:text-[30px] lg:text-[80px]",
+                    "text-[24px] min-[550px]:text-[40px] md:text-[50px] lg:text-[80px]",
                     "text-center",
                     "relative z-[10]",
                     "text-white",

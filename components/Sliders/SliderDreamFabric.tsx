@@ -103,7 +103,7 @@ const SliderDreamFabric = ({ className, items }: TComponentProps) => {
             // 'grid grid-flow-col gap-[20px]',
             // 'auto-cols-[100%] md:auto-cols-[calc((100%-1*20px)/2)] lg:auto-cols-[calc((100%-3*20px)/4)] 2xl:auto-cols-[calc((100%-4*20px)/4)]',
             "flex items-stretch gap-[20px]",
-            "pt-[20px] md:pb-10 lg:pb-[58px] pb-[20px]",
+            "pt-[20px] pb-10 lg:pb-[58px]",
             // 'scrollbar-x-thin',
             "overflow-x-auto overflow-y-hidden",
             "scrollbar-hide",

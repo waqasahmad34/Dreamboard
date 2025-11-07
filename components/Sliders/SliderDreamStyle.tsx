@@ -101,7 +101,7 @@ const SliderDreamStyle = ({ className, items }: TComponentProps) => {
           className={cn(
             "SliderDreamStyle",
             "flex gap-[20px]",
-            "pt-[20px] md:pb-10 lg:pb-[58px] pb-[20px] ",
+            "pt-[20px] pb-10 lg:pb-[58px]",
             // 'scrollbar-x-thin',
             "overflow-x-auto overflow-y-hidden",
             "scrollbar-hide",
