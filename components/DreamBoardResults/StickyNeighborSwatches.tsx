@@ -174,7 +174,7 @@ export default function StickyNeighborSwatches({
         <a
           className={cn(
             'pointer-events-auto fixed',
-            'top-1/2 left-[10px] -translate-y-1/2',
+            'top-1/2 min-[1720px]:left-[12%] min-[1840px]:left-[15%] min-[2040px]:left-[18%] min-[2240px]:left-[20%] left-[10px] -translate-y-1/2',
             'hidden sm:flex',
             'items-center justify-center',
           )}
@@ -202,7 +202,7 @@ export default function StickyNeighborSwatches({
         <a
           className={cn(
             'pointer-events-auto fixed',
-            'top-1/2 right-[10px] -translate-y-1/2',
+            'top-1/2 min-[1720px]:right-[12%] min-[1840px]:right-[15%] min-[2040px]:right-[18%] min-[2240px]:right-[20%] right-[10px] -translate-y-1/2',
             'hidden sm:flex',
             'items-center justify-center',
           )}
