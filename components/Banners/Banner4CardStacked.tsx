@@ -128,8 +128,8 @@ const Banner4CardStacked = ({
           "bg-[#e4ddd2]",
           "rounded-[16px]",
           "px-[50px] lg:px-[200px]",
-          "pt-7 sm:pt-[50px]",
-          "pb-[74px] sm:pb-[100px] lg:pb-[200px]"
+          "pt-7 sm:pt-[35px]",
+          "pb-[74px] sm:pb-[83px] lg:pb-[200px]"
           // "max-w-full"
         )}
       >
@@ -145,9 +145,9 @@ const Banner4CardStacked = ({
         <div className="flex flex-col items-center justify-center">
           <span
             className={cn(
-              "text-[8px] md:text-[12px] lg:text-[15px]",
+              "text-[12px] lg:text-[15px]",
               "font-bold uppercase tracking-[15px]",
-              "mb-[20px]"
+              "mb-[26px] sm:mb-[20px]"
             )}
           >
             Meet your
@@ -155,7 +155,7 @@ const Banner4CardStacked = ({
           <h2
             className={cn(
               "mt-[-30px] font-brand text-transparent uppercase",
-              "text-[40px] md:text-[60px] lg:text-[130px]",
+              "text-[36px] min-[375px]:text-[48px] min-[550px]:text-[60px] sm:text-[70px] md:text-[80px] min-[1024px]:text-[100px] lg:text-[130px]",
               "bg-clip-text"
             )}
             style={{
