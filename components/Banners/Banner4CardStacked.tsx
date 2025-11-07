@@ -69,7 +69,7 @@ const Banner4CardStacked = ({
         "z-[1]",
         "flex flex-col",
         "items-center justify-start",
-        "min-[1024px]:pb-[31vw] 2xl:pb-[23vw] sm:pb-[27vw] pb-[23vw] min-[1300px]:pt-0 lg:pt-12 ",
+        "min-[1024px]:pb-[34vw] lg:pb-[31vw] 2xl:pb-[25vw] min-[550px]:pb-[30vw] pb-[23vw] min-[1300px]:pt-0 lg:pt-12 ",
         // 'overflow-hidden',
         className
       )}
