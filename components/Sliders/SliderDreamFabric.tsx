@@ -178,7 +178,7 @@ const SliderDreamFabric = ({ className, items }: TComponentProps) => {
                     height={700}
                     className={cn(
                       "ImageProduct",
-                      "w-[200px] md:w-[300px] lg:w-[300px] 2xl:w-[400px]",
+                      "w-[320px] sm:w-[300px] md:w-[300px] 2xl:w-[400px]",
                       "object-contain",
                       "aspect-3/2 w-auto"
                       // 'grow-1',
@@ -243,20 +243,7 @@ const SliderDreamFabric = ({ className, items }: TComponentProps) => {
           ))}
 
           {/* LAST DUMMY SLIDE */}
-          <div
-            className={cn(
-              "SliderItem",
-              "LastDummySlide",
-              "cursor-pointer",
-              "overflow-hidden",
-              "sm:w-[calc((100vw-600px)/2+0px)]",
-              "lg:w-[calc((100vw-1100px)/2+0px)]",
-              "xl:w-[calc((100vw-1100px)/2+0px)]",
-              "2xl:w-[calc((100vw-1100px)/2+0px)]",
-              "shrink-0"
-            )}
-            key={"last-slide-dreamboards"}
-          />
+         
         </div>
 
         {/* VISUAL PROGRESS BAR */}
