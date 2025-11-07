@@ -55,7 +55,7 @@ const GridImagesAnimated = ({
         "flex-col lg:flex-row",
         " lg:gap-[20px]",
         "p-[20px]",
-        "w-[92vw] sm:w-[60vw] min-[1100px]:w-max",
+        "w-[92vw] sm:w-[80vw] md:w-[60vw] min-[1100px]:w-max",
 
         // 'w-[90vw]',
         // 'lg:w-[1000px]',
@@ -77,7 +77,7 @@ const GridImagesAnimated = ({
           // 'w-[80%]',
 
           "w-full lg:w-auto",
-          " h-full max-h-[206px] lg:max-h-[550px]",
+          " h-fullmax-h-fit lg:max-h-[550px]",
           "aspect-[3/2]"
         )}
       >
@@ -155,7 +155,7 @@ const GridImagesAnimated = ({
           // 'w-[20%]',
 
           "w-full lg:w-auto",
-          "h-[230px] md:h-[350px] lg:h-[550px]",
+          "h-[250px] min-[600px]:h-[350px] lg:h-[550px]",
           // 'aspect-[1/1]',
           "lg:aspect-[1.5/3]"
         )}

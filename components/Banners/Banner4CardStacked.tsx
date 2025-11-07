@@ -69,7 +69,7 @@ const Banner4CardStacked = ({
         "z-[1]",
         "flex flex-col",
         "items-center justify-start",
-        "min-[1024px]:pb-[31vw] 2xl:pb-[23vw] sm:pb-[27vw] pb-[23vw] min-[1300px]:pt-0 lg:pt-12 ",
+        "min-[1024px]:pb-[34vw] lg:pb-[31vw] 2xl:pb-[25vw] min-[550px]:pb-[30vw] pb-[23vw] min-[1300px]:pt-0 lg:pt-12 ",
         // 'overflow-hidden',
         className
       )}
@@ -128,8 +128,8 @@ const Banner4CardStacked = ({
           "bg-[#e4ddd2]",
           "rounded-[16px]",
           "px-[50px] lg:px-[200px]",
-          "pt-7 sm:pt-[50px]",
-          "pb-[74px] sm:pb-[100px] lg:pb-[200px]"
+          "pt-7 sm:pt-[35px]",
+          "pb-[74px] sm:pb-[83px] lg:pb-[200px]"
           // "max-w-full"
         )}
       >
@@ -145,9 +145,9 @@ const Banner4CardStacked = ({
         <div className="flex flex-col items-center justify-center">
           <span
             className={cn(
-              "text-[8px] md:text-[12px] lg:text-[15px]",
+              "text-[12px] lg:text-[15px]",
               "font-bold uppercase tracking-[15px]",
-              "mb-[20px]"
+              "mb-[26px] sm:mb-[20px]"
             )}
           >
             Meet your
@@ -155,7 +155,7 @@ const Banner4CardStacked = ({
           <h2
             className={cn(
               "mt-[-30px] font-brand text-transparent uppercase",
-              "text-[40px] md:text-[60px] lg:text-[130px]",
+              "text-[36px] min-[375px]:text-[48px] min-[550px]:text-[60px] sm:text-[70px] md:text-[80px] min-[1024px]:text-[100px] lg:text-[130px]",
               "bg-clip-text"
             )}
             style={{
@@ -334,7 +334,7 @@ const Banner4CardStacked = ({
                 <span
                   className={cn(
                     "font-bold uppercase tracking-[5px]",
-                    "text-[6px] sm:text-[8px] lg:text-[25px]",
+                    "text-[8px] min-[550px]:text-[14px] md:text-[16px] lg:text-[25px]",
                     "mb-[10px] lg:mb-[50px]",
                     "text-center"
                   )}
@@ -346,7 +346,7 @@ const Banner4CardStacked = ({
                     "font-es-wf",
                     "!leading-none",
                     "font-[100]",
-                    "text-[22px] sm:text-[30px] lg:text-[80px]",
+                    "text-[24px] min-[550px]:text-[40px] md:text-[50px] lg:text-[80px]",
                     "text-center",
                     "relative z-[10]",
                     "text-white",

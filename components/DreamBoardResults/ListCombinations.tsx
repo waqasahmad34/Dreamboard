@@ -257,8 +257,8 @@ const ListCombinations = ({
 
         {/* Mood Board Grid Section */}
         {results && results.length > 0 && (
-          <div className="mb-12 pt-[50px]">
-            <div className="grid grid-cols-1 gap-[150px]">
+          <div className="mb-12 sm:pt-[50px] pt-[25px]">
+            <div className="grid grid-cols-1 gap-10 sm:gap-14 md:gap-20 lg:gap-[100px] xl:gap-[150px]">
               {results
                 .filter(
                   (combination: any) =>

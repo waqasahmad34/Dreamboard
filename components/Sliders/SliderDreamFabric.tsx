@@ -102,11 +102,12 @@ const SliderDreamFabric = ({ className, items }: TComponentProps) => {
             "SliderDreamFabric",
             // 'grid grid-flow-col gap-[20px]',
             // 'auto-cols-[100%] md:auto-cols-[calc((100%-1*20px)/2)] lg:auto-cols-[calc((100%-3*20px)/4)] 2xl:auto-cols-[calc((100%-4*20px)/4)]',
-            "flex items-stretch gap-[20px]",
-            "pt-[20px] md:pb-10 lg:pb-[58px] pb-[20px]",
+            "flex items-stretch gap-[20px] ",
+            "pt-[20px] pb-10 lg:pb-[58px]",
             // 'scrollbar-x-thin',
             "overflow-x-auto overflow-y-hidden",
             "scrollbar-hide",
+          
             className
           )}
         >
@@ -147,23 +148,23 @@ const SliderDreamFabric = ({ className, items }: TComponentProps) => {
                 "shrink-0",
                 "cursor-pointer",
                 "transition-all duration-300",
-                "hover:scale-[1.01] shadow-xl/10 hover:shadow-xl/20 "
+                "hover:scale-[1.01] shadow-xl/10 hover:shadow-xl/20"
               )}
             >
               {/* TITLE */}
-              <div className="flex flex-col items-center justify-center sm:mb-0 mb-3">
+              <div className="flex flex-col mb-3 justify-center text-center items-center">
                 <h2
                   className={cn(
-                    "break-words text-center font-extrabold text-neutral-800 uppercase leading-none tracking-[-0.02em] opacity-90",
+                    "break-words font-extrabold text-neutral-800 uppercase leading-none tracking-[-0.02em] opacity-90",
                     "selection:bg-[#F97352] selection:text-white",
                     "!leading-none",
-                    "text-[15px] lg:text-[30px]",
+                    "text-sm sm:text-[18px] lg:text-[30px]",
                     "mb-[5px]"
                   )}
                 >
                   {removeCharsFromString(item.family ?? "")}
                 </h2>
-                <span className="text-center align-baseline font-light text-neutral-800 text-xs uppercase leading-none tracking-[0.7em] selection:bg-[#F97352] selection:text-white">
+                <span className="align-baseline font-light text-neutral-800 text-[10px] sm:text-xs uppercase leading-none tracking-[0.7em] selection:bg-[#F97352] selection:text-white">
                   {removeCharsFromString(item.child ?? "")}
                 </span>
               </div>
@@ -177,7 +178,7 @@ const SliderDreamFabric = ({ className, items }: TComponentProps) => {
                     height={700}
                     className={cn(
                       "ImageProduct",
-                      "w-[200px] md:w-[300px] lg:w-[300px] 2xl:w-[400px]",
+                      "w-[320px] sm:w-[300px] md:w-[300px] 2xl:w-[400px]",
                       "object-contain",
                       "aspect-3/2 w-auto"
                       // 'grow-1',
@@ -240,6 +241,9 @@ const SliderDreamFabric = ({ className, items }: TComponentProps) => {
 							</div> */}
             </Link>
           ))}
+
+          {/* LAST DUMMY SLIDE */}
+         
         </div>
 
         {/* VISUAL PROGRESS BAR */}

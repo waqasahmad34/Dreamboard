@@ -12,7 +12,7 @@ import './globals.css';
 import './fonts.css';
 import BottomBar from '@/components/BottomBar';
 import ButtonScrollTop from '@/components/Buttons/ButtonScrollTop';
-import ScriptFreshChat from '@/components/Scripts/ScriptFreshChat';
+// import ScriptFreshChat from '@/components/Scripts/ScriptFreshChat';
 import ScriptGTM from '@/components/Scripts/ScriptGTM/ScriptGTM';
 import ScriptGTMNoScript from '@/components/Scripts/ScriptGTM/ScriptGTMNoScript';
 
@@ -79,14 +79,16 @@ export default function RootLayout({
         <QueryProvider>
           <CommentsProvider>
             <SocialReactionsProvider>
-              {process.env.ENVIRONMENT === 'production' ? (
+              {process.env.ENVIRONMENT === 'production' && (
                 <>
                   <ScriptGTM />
                   <ScriptGTMNoScript />
                 </>
-              ) : (
-                <ScriptFreshChat />
-              )}
+              ) 
+              // : (
+              //   <ScriptFreshChat />
+              // )
+              }
 
               <Nav className="" />
               <div

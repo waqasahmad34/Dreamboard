@@ -46,7 +46,7 @@ const ButtonScrollTop = () => {
             'bottom-[125px] lg:bottom-[100px]',
             'flex items-center justify-center',
             'h-[30px] w-[30px] lg:h-[45px] lg:w-[45px]',
-            'bg-gray shadow-lg transition-all duration-300 hover:scale-110',
+            'bg-[#50c9ce] shadow-lg transition-all duration-300 hover:scale-110',
             'p-1 lg:p-3',
             // 'rounded-full',
             'rounded-[5px]',
