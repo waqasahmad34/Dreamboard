@@ -24,7 +24,7 @@ const TitleGold = ({ className, title, subtitle, text }: TComponentProps) => {
         className={cn(
           "text-center font-extrabold text-[#D2C4B7] uppercase opacity-100",
           "selection:bg-[#F97352] selection:text-white",
-          "text-[22px] sm:text-[40px] lg:text-[75px]",
+          "text-[30px] sm:text-[40px] lg:text-[75px]",
           "mb-[15px]",
           "leading-none",
           // 'break-all',
@@ -40,8 +40,8 @@ const TitleGold = ({ className, title, subtitle, text }: TComponentProps) => {
           "tracking-[0.3em] lg:tracking-[0.6em]",
           "selection:bg-[#F97352] selection:text-white",
           "leading-none",
-          "text-[10px] sm:text-[15px] lg:text-[15px]",
-          "mb-[25px] lg:mb-[25px]"
+          "text-[14px] sm:text-[15px] lg:text-[15px]",
+          "mb-[16px] min-[1024px]:mb-[25px]"
         )}
       >
         {subtitle}

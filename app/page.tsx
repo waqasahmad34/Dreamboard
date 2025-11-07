@@ -260,7 +260,7 @@ const PageDreamBoardResults = async ({ searchParams }: PageProps) => {
           className="mb-[20px]"
         /> */}
 
-        <section className="py-[25px]" id="trigger-sticky-bar">
+        <section className="sm:pt-[25px] pb-[25px]" id="trigger-sticky-bar">
           {/* <TitleClippedText
             imageUrl={originalRoom}
             subtitle="DIVE IN & EXPLORE YOUR"
