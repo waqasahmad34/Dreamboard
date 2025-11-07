@@ -28,21 +28,25 @@ export default function StickyNeighborSwatches({
   const [isContainerVisible, setIsContainerVisible] = useState(false);
 
   useEffect(() => {
-    const container = document.getElementById('sticky-swatches-container');
-    if (!container) {
-      setIsContainerVisible(false);
-      return;
-    }
+    const update = () => {
+      const el = document.getElementById('sticky-swatches-container');
+      if (!el) {
+        setIsContainerVisible(false);
+        return;
+      }
+      const rect = el.getBoundingClientRect();
+      // Show when top <= 50 AND bottom >= 250
+      const show = rect.top <= 50 && rect.bottom >= 250;
+      setIsContainerVisible(show);
+    };
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        setIsContainerVisible(entry.isIntersecting);
-      },
-      { root: null, rootMargin: '0px', threshold: [0, 0.01, 0.1] },
-    );
-    observer.observe(container);
-    return () => observer.disconnect();
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
   }, []);
   // Map combination_id -> swatch child
   const combinationToChild = useMemo(() => {
@@ -165,7 +169,7 @@ export default function StickyNeighborSwatches({
   if (!isContainerVisible || !neighborChildren || (!leftSwatch && !rightSwatch)) return null;
 
   return (
-    <div className="pointer-events-none z-[60]">
+    <div className="pointer-events-none z-[60] min-[760px]:block hidden">
       {leftSwatch && leftTargetCombinationId ? (
         <a
           className={cn(
