@@ -95,10 +95,10 @@ const TabMoodboard = ({
             className3ImageWrapper,
             "relative",
             "w-[calc(50%-10px)] lg:w-full",
-            "max-h-[200px] h-full",
-            "sm:max-h-[400px]",
-            " lg:min-h-auto",
-            "lg:aspect-[2/3]"
+            "max-h-[280px]  h-full",
+            "min-[600px]:max-h-[400px]",
+            "min-h-auto",
+            "aspect-[2/3]"
           )}
           initial={{ opacity: 0, x: 100, scale: 0.95 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
