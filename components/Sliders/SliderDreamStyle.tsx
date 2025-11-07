@@ -160,12 +160,12 @@ const SliderDreamStyle = ({ className, items }: TComponentProps) => {
                     className={cn(
                       "break-words text-center font-extrabold text-neutral-800 uppercase leading-none tracking-[-0.02em] opacity-90",
                       "selection:bg-[#F97352] selection:text-white",
-                      "text-[15px] lg:text-[20px]"
+                      "text-[14px] sm:text-[18px] lg:text-[20px]"
                     )}
                   >
                     {item.family}
                   </h2>
-                  <span className="!leading-none text-center align-baseline font-light text-neutral-800 text-xs uppercase tracking-[0.7em] selection:bg-[#F97352] selection:text-white">
+                  <span className="!leading-none text-center align-baseline font-light text-neutral-800 text-[10px] sm:text-xs uppercase tracking-[0.7em] selection:bg-[#F97352] selection:text-white">
                     {item.type}
                   </span>
                 </div>
