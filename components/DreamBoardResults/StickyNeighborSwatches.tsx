@@ -24,6 +24,26 @@ export default function StickyNeighborSwatches({
   swatchesMetadataArr,
   originalSwatches,
 }: TProps) {
+  // Track if the section container is visible in viewport
+  const [isContainerVisible, setIsContainerVisible] = useState(false);
+
+  useEffect(() => {
+    const container = document.getElementById('sticky-swatches-container');
+    if (!container) {
+      setIsContainerVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setIsContainerVisible(entry.isIntersecting);
+      },
+      { root: null, rootMargin: '0px', threshold: [0, 0.01, 0.1] },
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
   // Map combination_id -> swatch child
   const combinationToChild = useMemo(() => {
     const map = new Map<number, string>();
@@ -142,7 +162,7 @@ export default function StickyNeighborSwatches({
     return match?.combination_id ?? null;
   }, [neighborChildren, results, combinationToChild]);
 
-  if (!neighborChildren || (!leftSwatch && !rightSwatch)) return null;
+  if (!isContainerVisible || !neighborChildren || (!leftSwatch && !rightSwatch)) return null;
 
   return (
     <div className="pointer-events-none z-[60]">

@@ -260,7 +260,7 @@ const ListCombinations = ({
 
         {/* Mood Board Grid Section */}
         {results && results.length > 0 && (
-          <div className="mb-12 sm:pt-[50px] pt-[25px] relative">
+          <div className="mb-12 sm:pt-[50px] pt-[25px] relative" id="sticky-swatches-container">
             {/* Sticky swatches */}
             <StickyNeighborSwatches
               results={results || []}
@@ -268,7 +268,7 @@ const ListCombinations = ({
               originalSwatches={originalSwatches}
             />
 
-            <div className="grid grid-cols-1 gap-10 sm:gap-14 md:gap-20 lg:gap-[100px] xl:gap-[150px]" id="sticky-swatches-container">
+            <div className="grid grid-cols-1 gap-10 sm:gap-14 md:gap-20 lg:gap-[100px] xl:gap-[150px]" >
               {results
                 .filter(
                   (combination: any) =>
