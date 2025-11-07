@@ -103,6 +103,8 @@ const Banner4CardStacked = ({
               className={cn("h-auto w-full object-cover blur")}
               src={imageUrlRoom}
               alt="Banner"
+              loading="eager"
+              priority
               fill
             />
             {/* <div className="absolute bottom-0 h-[20px] w-full bg-white" /> */}
@@ -234,6 +236,8 @@ const Banner4CardStacked = ({
                   alt="Banner"
                   width={1080}
                   height={395}
+                  loading="eager"
+                  priority
                 />
               </motion.div>
             )}
@@ -264,6 +268,8 @@ const Banner4CardStacked = ({
                   alt="Banner"
                   width={1080}
                   height={395}
+                  loading="eager"
+                  priority
                 />
               </motion.div>
             )}
@@ -294,6 +300,8 @@ const Banner4CardStacked = ({
                   alt="Banner"
                   width={1080}
                   height={395}
+                  loading="eager"
+                  priority
                 />
               </motion.div>
             )}
@@ -362,6 +370,8 @@ const Banner4CardStacked = ({
                 alt="Banner"
                 width={1080}
                 height={395}
+                loading="eager"
+                priority
               />
             </motion.div>
           </div>
