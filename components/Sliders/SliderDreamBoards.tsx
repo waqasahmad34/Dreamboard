@@ -243,6 +243,8 @@ const SliderDreamBoards = ({ className, items }: TComponentProps) => {
                         alt={`item`}
                         width={300}
                         height={450}
+                        loading="lazy"
+                        
                       />
                     ) : (
                       <ImageMissing

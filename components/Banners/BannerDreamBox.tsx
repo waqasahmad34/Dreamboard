@@ -56,6 +56,7 @@ const BannerDreamBox = ({
           width={374}
           height={374}
           className="aspect-square w-[150px] object-cover lg:w-[374px]"
+          loading='lazy'
         />
       </div>
 
