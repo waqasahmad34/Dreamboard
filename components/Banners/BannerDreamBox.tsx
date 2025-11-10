@@ -36,6 +36,7 @@ const BannerDreamBox = ({
         alt="Banner"
         width={1500}
         height={1000}
+        loading="lazy"
       />
 
       {/* LEFT */}
@@ -56,7 +57,7 @@ const BannerDreamBox = ({
           width={374}
           height={374}
           className="aspect-square w-[150px] object-cover lg:w-[374px]"
-          loading='lazy'
+          loading="lazy"
         />
       </div>
 
