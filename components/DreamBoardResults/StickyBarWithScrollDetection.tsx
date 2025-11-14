@@ -15,7 +15,6 @@ export default function StickyBarWithScrollDetection({
   triggerId,
 }: StickyBarWithScrollDetectionProps) {
   const [isVisible, setIsVisible] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
       const targetSection = document.getElementById(triggerId);
