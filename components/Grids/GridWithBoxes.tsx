@@ -96,6 +96,7 @@ const GridWithBoxes = ({
               height={400}
               loading="eager"
               className={cn("object-cover", "h-full", "w-full", "object-left")}
+              unoptimized={true}
             />
             <BoxShadow className="" />
           </div>
