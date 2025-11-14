@@ -206,14 +206,15 @@ const BannerLeftBoxOverlaid = ({
                 <motion.li
                   key={swatch.id}
                   className={cn(
-                    "bg-[#ece4dd]",
-                    "shadow-2xl",
+                    "rounded-[16px] bg-[#ece4dd]",
                     "p-[10px] lg:p-[15px]",
-                    "rounded-[16px]",
-                    "transition-all duration-300 ease-in-out",
-                    "hover:scale-105",
+                    "flex flex-col items-center justify-center",
                     "shrink-0",
-                    " sm:w-[160px] md:w-[180px] lg:w-[200px]"
+                    // 'shadow-2xl',
+                    "shadow-2xl",
+                    "transition-all duration-300 ease-in-out hover:scale-105",
+                    "group",
+                    "w-[160px] sm:w-[175px] lg:w-[200px]"
                   )}
                   variants={{
                     hidden: {
@@ -243,19 +244,25 @@ const BannerLeftBoxOverlaid = ({
                     <Image
                       src={swatch.url}
                       alt="swatch"
-                      width={120}
-                      height={120}
-                      className="mb-[10px] w-[80px] xs:w-[120px] lg:w-[150px]"
+                      width={200}
+                      height={200}
+                      className={cn(
+                        "SwatchImage",
+
+                        "aspect-square",
+                        "max-w-full",
+                        "shrink-1 grow-0",
+                        "object-contain",
+                        "h-auto w-auto",
+                        "select-none"
+                        // 'transition-all duration-300 ease-in-out',
+                        // 'group-hover:scale-105',
+                      )}
                     />
                     <div className="flex items-center justify-between gap-2">
-                      <span
-                        className={cn(
-                          "block text-center text-[#a7a19a]",
-                          "text-[12px] sm:text-[15px]"
-                        )}
-                      >
+                      <span className="block w-full text-center text-[#a7a19a] text-sm">
                         {capitalizeFirstLetter(swatch?.family || "")}
-                        <span className="mx-[5px]">|</span>
+                        <span className="mx-1 sm:mx-[5px]">|</span>
                         {capitalizeFirstLetter(swatch?.child || "")}
                       </span>
                       <ArrowIcon className="lg:size-3 size-2 mb-0.5" />

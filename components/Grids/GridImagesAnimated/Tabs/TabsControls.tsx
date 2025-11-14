@@ -16,7 +16,7 @@ const TabsControls = ({ className, tab, setTab }: TComponentProps) => {
     "min-[1140px]:p-[10px] md:p-[6px] p-[10px]",
     // 'lg:px-0 lg:py-[10px]',
     "uppercase",
-    "text-[8px] sm:text-[16px] md:text-[12px] min-[1140px]:text-[16px]",
+    "text-[8px] sm:text-[10px] md:text-[12px] min-[1140px]:text-[16px]",
     "transition-all duration-300",
     "backdrop-blur-[16px]",
     "cursor-pointer",

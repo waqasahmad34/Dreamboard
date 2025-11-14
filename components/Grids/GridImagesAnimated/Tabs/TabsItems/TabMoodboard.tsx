@@ -156,16 +156,16 @@ const TabMoodboard = ({
             />
             <div
               className={cn(
-                "relative",
+                "absolute",
                 "overflow-hidden",
-                "h-[100px]",
+                "h-full",
                 "group-hover:scale-110",
                 "transition-all duration-300"
               )}
             >
               <Image
                 // className="object-contain object-size"
-                className={cn("object-contain", "w-full", "h-full")}
+                className={cn("object-contain lg:object-cover inset-0", "w-full", "h-full")}
                 src={styled_product_url}
                 alt={`styled_product_url`}
                 // fill

@@ -49,14 +49,11 @@ const GridImagesAnimated = ({
       className={cn(
         "GridImagesAnimated",
         "bg-white backdrop-blur-[16px]",
-        // "overflow-hidden",
         "rounded-[16px]",
-        "flex items-start justify-start",
-        "flex-col lg:flex-row",
+        "grid grid-cols-1 lg:grid-cols-12 lg:w-[92vw] sm:h-full lg:h-[70vh] max-h-[720px] lg:max-h-[620px] xl:max-h-[720px] lg:max-w-max",
         " lg:gap-[20px]",
         "p-[20px]",
-        "w-[92vw] sm:w-[80vw] md:w-[60vw] min-[1100px]:w-max",
-
+        // "overflow-hidden",
         // 'w-[90vw]',
         // 'lg:w-[1000px]',
         // 'xl:w-[1200px]',
@@ -71,20 +68,18 @@ const GridImagesAnimated = ({
           "relative",
           "flex flex-col",
           "shrink-0",
-          // 'overflow-hidden',
           "lg:rounded-[16px]",
-
+          "w-full lg:w-fit",
+          " h-full lg:col-span-8",
+          // 'overflow-hidden',
           // 'w-[80%]',
-
-          "w-full lg:w-auto",
-          " h-fullmax-h-fit lg:max-h-[550px]",
-          "aspect-[3/2]"
+          // "aspect-[3/2]"
         )}
       >
         <Image
           src={final_room_url}
           alt="Final Room"
-          className={cn("object-cover", "rounded-t-[16px] lg:rounded-[16px]")}
+          className={cn("object-cover", "rounded-t-[16px] lg:rounded-[16px] lg:h-full lg:w-full")}
           width={1536}
           height={1024}
         />
@@ -92,9 +87,9 @@ const GridImagesAnimated = ({
         {/* SOCIAL REACTIONS */}
         <div
           className={cn(
-            "ReactionsAndComments",
-            "absolute z-[30]",
-            "top-[24px] sm:top-1/2 sm:translate-y-[-50%]",
+            "ReactionsAndComments ",
+            "absolute z-[30] ",
+            "top-[3px] min-[360px]:top-[24px] sm:top-1/2 sm:translate-y-[-50%]",
             "lg:top-auto lg:translate-y-0",
             "lg:bottom-[10px]",
             "left-[10px]",
@@ -144,20 +139,19 @@ const GridImagesAnimated = ({
       <div
         className={cn(
           "flex items-start justify-between",
-          "flex-row lg:flex-col",
+          " lg:col-span-4 lg:w-full lg:max-h-none  max-h-[300px] lg:h-full",
+          "flex-row lg:flex-col ",
           "shrink-0",
           "gap-[20px]",
           "overflow-hidden",
           "rounded-b-[16px] lg:rounded-[16px]",
-          "relative",
+          "relative ",
           "z-[10]",
-
-          // 'w-[20%]',
-
-          "w-full lg:w-auto",
-          "h-[250px] min-[600px]:h-[350px] lg:h-[550px]",
-          // 'aspect-[1/1]',
           "lg:aspect-[1.5/3]"
+          // 'w-[20%]',
+          // "h-[250px] min-[600px]:h-[350px] lg:h-[550px]",
+          // 'aspect-[1/1]',
+
         )}
       >
         <TabsItems
