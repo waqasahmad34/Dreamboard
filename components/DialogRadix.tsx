@@ -20,7 +20,7 @@ const DialogRadix = ({ className, trigger, content }: IComponentProps) => (
       <Dialog.Overlay
         className={cn(
           "DialogRadixOverlay",
-          "fixed inset-0 z-[100]",
+          "fixed inset-0 z-[9999]",
           "bg-black/50"
           // 'data-[state=open]:animate-overlayShow'
         )}
@@ -32,7 +32,7 @@ const DialogRadix = ({ className, trigger, content }: IComponentProps) => (
           "animate-[fadeIn_0.2s_ease-out_forwards]",
           "fixed",
           "-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2",
-          "z-[101]",
+          "z-[9999]",
           "overflow-hidden w-[90vw] sm:w-auto",
 
           "rounded-[16px]",

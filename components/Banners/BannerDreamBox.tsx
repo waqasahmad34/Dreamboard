@@ -51,13 +51,13 @@ const BannerDreamBox = ({
           'group-hover:-translate-x-1/2 group-hover:left-1/2',
         )}
       >
-        <Image
+          <Image
           src={imageDreamboardUrl || image_order_free_swatches_swatch_kit}
           alt="Banner"
           width={374}
           height={374}
           className="aspect-square w-[150px] object-cover lg:w-[374px]"
-          loading="lazy"
+  
         />
       </div>
 

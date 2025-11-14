@@ -44,8 +44,8 @@ const BannerBoxRightSwatches = ({
         "mb-[100px] lg:mb-[200px]",
         "gap-[50px] lg:gap-[20px]",
         "min-h-[500px] lg:min-h-[800px]",
-        // 'overflow-hidden',
         "rounded-[16px]",
+        // 'overflow-hidden',
         className
       )}
     >
@@ -187,7 +187,7 @@ const BannerBoxRightSwatches = ({
           "-translate-x-1/2 left-1/2",
           "bottom-[-100px] lg:bottom-[-150px]",
           "col-span-1 lg:col-span-3",
-          "gap-4 sm:gap-[30px] lg:gap-[50px]",
+          "gap-3 xs:gap-[20px]",
           "text-white",
           "text-center",
           "overflow-x-auto",
@@ -217,7 +217,7 @@ const BannerBoxRightSwatches = ({
             key={swatch.id}
             className={cn(
               "rounded-[16px] bg-[#ece4dd]",
-              "p-[10px]",
+                "p-[10px] lg:p-[15px]",
               "flex flex-col items-center justify-center",
               "shrink-0",
               // 'shadow-2xl',
@@ -258,12 +258,12 @@ const BannerBoxRightSwatches = ({
                 height={200}
                 className={cn(
                   "SwatchImage",
-                  "mb-[10px]",
+                
                   "aspect-square",
                   "max-w-full",
                   "shrink-1 grow-0",
                   "object-contain",
-                  "size-[100px] lg:size-[200px]",
+                  "h-auto w-auto",
                   "select-none"
                   // 'transition-all duration-300 ease-in-out',
                   // 'group-hover:scale-105',
