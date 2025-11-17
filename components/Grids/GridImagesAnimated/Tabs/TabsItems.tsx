@@ -22,9 +22,11 @@ type TComponentProps = {
     swatchMetadata?: Record<string, any>;
   };
   tab: number;
+  sessionId?: string;
+  combinationId?: string;
 };
 
-const TabsItems = ({ data, tab }: TComponentProps) => {
+const TabsItems = ({ data, tab, sessionId, combinationId }: TComponentProps) => {
   // console.log('data', data);
   const containerAnimation = {
     initial: { opacity: 0 },
@@ -81,7 +83,14 @@ const TabsItems = ({ data, tab }: TComponentProps) => {
     },
     // COMMENTS
     {
-      component: <TabComments data={data} className="h-full" />,
+      component: (
+        <TabComments
+          data={data}
+          className="h-full"
+          sessionId={sessionId}
+          combinationId={combinationId}
+        />
+      ),
     },
   ];
 

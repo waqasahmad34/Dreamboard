@@ -8,9 +8,11 @@ type TComponentProps = {
     index?: number;
   };
   className: string;
+  sessionId?: string;
+  combinationId?: string;
 };
 
-const TabComments = ({ data, className }: TComponentProps) => {
+const TabComments = ({ data, className, sessionId, combinationId }: TComponentProps) => {
   const final_room_url = data?.final_room_url;
   return (
     <div className={cn("h-full p-[10px]", className)}>
@@ -41,6 +43,8 @@ const TabComments = ({ data, className }: TComponentProps) => {
       <Comments
         className={cn("relative", "h-full", "w-full", "p-[0px]")}
         data={data}
+        sessionId={sessionId}
+        combinationId={combinationId}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import { MessageCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { LuSendHorizontal } from "react-icons/lu";
 import { Input } from "@/components/ui/input";
 import {
@@ -18,17 +18,51 @@ type TBadgeReactionProps = {
 type TComponentProps = {
   setTab: (tab: number) => void;
   className: string;
+  combinationId?: string;
+  sessionId?: string;
 };
 
-const ButtonComments = ({ setTab, className }: TComponentProps) => {
+const ButtonComments = ({ setTab, className, combinationId, sessionId }: TComponentProps) => {
   const [isCommentsPopoverOpen, setIsCommentsPopoverOpen] =
     useState<boolean>(false);
   const [commentInput, setCommentInput] = useState<string>("");
+  const [localCommentsCount, setLocalCommentsCount] = useState<number>(0);
+ 
+  // Ensure IDs are strings
+  const combinationIdString = combinationId ? String(combinationId) : undefined;
+  const sessionIdString = sessionId ? String(sessionId) : undefined;
 
-  // Get comment functionality from the useComments hook
-  const { commentsCount, addComment, isSubmitting } = useComments({
+  // Get comment functionality from the useComments hook (for adding comments)
+  const { addComment, isSubmitting } = useComments({
     sortOrder: "asc",
+    combinationId: combinationIdString,
+    sessionId: sessionIdString,
   });
+
+  // Fetch comment count for this specific combination
+  const fetchCommentCount = useCallback(async () => {
+    if (!sessionIdString && !combinationIdString) return;
+
+    try {
+      const params = new URLSearchParams();
+      if (sessionIdString) params.append('sessionId', sessionIdString);
+      if (combinationIdString) params.append('combinationId', combinationIdString);
+
+      const response = await fetch(`/your-dreamboard-results/api/comments?${params.toString()}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        setLocalCommentsCount(data.count || 0);
+      }
+    } catch (error) {
+      console.error('Failed to fetch comment count:', error);
+    }
+  }, [sessionIdString, combinationIdString]);
+
+  // Load comment count when component mounts or IDs change
+  useEffect(() => {
+    fetchCommentCount();
+  }, [fetchCommentCount]);
 
   const handleCommentSubmit = async () => {
     if (!commentInput.trim() || isSubmitting) return;
@@ -36,6 +70,8 @@ const ButtonComments = ({ setTab, className }: TComponentProps) => {
     try {
       await addComment(commentInput);
       setCommentInput(""); // Clear input after successful submission
+      // Refresh count after adding comment
+      await fetchCommentCount();
     } catch (error) {
       console.error("Failed to submit comment:", error);
     }
@@ -99,7 +135,7 @@ const ButtonComments = ({ setTab, className }: TComponentProps) => {
             className={cn("h-[10px] w-[10px] lg:h-[16px] lg:w-[16px]")}
           />
           <BadgeReaction
-            count={commentsCount}
+            count={localCommentsCount}
             className="bg-white text-black shadow-md"
           />
           <span className="sr-only">Comments</span>

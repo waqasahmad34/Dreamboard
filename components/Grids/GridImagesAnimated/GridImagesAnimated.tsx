@@ -13,6 +13,7 @@ import TabsItems from "./Tabs/TabsItems";
 type TComponentProps = {
   className?: string;
   combination_id: string;
+  sessionId?: string;
   data: {
     room_style_string: string;
     swatch_url: string;
@@ -34,6 +35,7 @@ type TComponentProps = {
 const GridImagesAnimated = ({
   className,
   combination_id,
+  sessionId,
   data,
   productMetadata,
   swatchMetadata,
@@ -41,6 +43,9 @@ const GridImagesAnimated = ({
   const final_room_url = data?.final_room_url;
 
   const [tab, setTab] = useState<number>(3);
+  
+  // Ensure combination_id is a string
+  const combinationIdString = combination_id ? String(combination_id) : undefined;
 
   // Social reactions are now handled by the provider with scoped IDs
 
@@ -116,7 +121,7 @@ const GridImagesAnimated = ({
             idData={`combination-state-${combination_id}`}
             idAnimation={`popup-animation-${combination_id}`}
           />
-          <ButtonComments className={cn()} setTab={setTab} />
+          <ButtonComments sessionId={sessionId} combinationId={combinationIdString} className={cn()} setTab={setTab} />
         </div>
 
         <FloatingReactions
@@ -161,6 +166,8 @@ const GridImagesAnimated = ({
             swatchMetadata,
           }}
           tab={tab}
+          sessionId={sessionId}
+          combinationId={combinationIdString}
         />
       </div>
     </div>

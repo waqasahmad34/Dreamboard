@@ -24,6 +24,8 @@ type TComponentProps = {
   currentUserName?: string;
   sortOrder?: "asc" | "desc";
   data?: Record<string, any>;
+  sessionId?: string;
+  combinationId?: string;
 };
 
 const Comments = ({
@@ -33,20 +35,36 @@ const Comments = ({
   currentUserName = "You",
   sortOrder = "asc",
   data,
+  sessionId,
+  combinationId = "1",
 }: TComponentProps) => {
+  // Ensure combinationId is always a string
+  const combinationIdString = combinationId ? String(combinationId) : "1";
+  
   const {
     comments: commentsSorted,
     newComment,
     setNewComment,
     isSubmitting,
+    isLoading,
     handleSubmit,
+    loadComments,
   } = useComments({
     sortOrder,
     onAddComment,
     currentUserName,
+    sessionId,
+    combinationId: combinationIdString,
   });
 
   const commentsContainerRef = useRef<HTMLDivElement>(null);
+
+  // Load comments from database when component mounts or IDs change
+  useEffect(() => {
+    if (sessionId || combinationIdString) {
+      loadComments(sessionId, combinationIdString);
+    }
+  }, [sessionId, combinationIdString, loadComments]);
 
   const formatDate = (date: Date | string) => {
     return dayjs(date).fromNow();
@@ -97,7 +115,17 @@ const Comments = ({
           // 'max-w-[217px]',
         )}
       >
-        {commentsSorted.length === 0 ? (
+        {isLoading ? (
+          <motion.div
+            className="py-8 text-center text-muted-foreground"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Loader2 className="mx-auto mb-2 h-6 w-6 animate-spin" />
+            <p>Loading comments...</p>
+          </motion.div>
+        ) : commentsSorted.length === 0 ? (
           <motion.div
             className="py-8 text-center text-muted-foreground"
             initial={{ opacity: 0, y: 20 }}

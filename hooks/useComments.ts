@@ -22,14 +22,18 @@ type UseCommentsProps = {
   sortOrder?: 'asc' | 'desc';
   onAddComment?: (content: string) => void;
   currentUserName?: string;
+  sessionId?: string;
+  combinationId?: string;
 };
 
 export const useComments = ({
   sortOrder = 'asc',
   onAddComment,
   currentUserName = 'You',
+  sessionId,
+  combinationId = undefined,
 }: UseCommentsProps = {}) => {
-  const { comments, addComment, isSubmitting, commentsCount } =
+  const { comments, addComment, loadComments, isSubmitting, isLoading, commentsCount } =
     useCommentsContext();
   const [newComment, setNewComment] = useState('');
 
@@ -37,7 +41,12 @@ export const useComments = ({
     if (!content.trim()) return;
 
     try {
-      const newCommentObj = await addComment(content, currentUserName);
+      const newCommentObj = await addComment(
+        content,
+        currentUserName,
+        sessionId,
+        combinationId
+      );
 
       // Call external handler if provided
       if (onAddComment) {
@@ -66,8 +75,10 @@ export const useComments = ({
     newComment,
     setNewComment,
     isSubmitting,
+    isLoading,
     handleSubmit,
     addComment: handleAddComment,
+    loadComments,
     commentsCount,
   };
 };
