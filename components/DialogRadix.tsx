@@ -33,7 +33,7 @@ const DialogRadix = ({ className, trigger, content }: IComponentProps) => (
           "fixed",
           "-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2",
           "z-[9999]",
-          "overflow-hidden w-[90vw] sm:w-auto",
+          "overflow-hidden lg:w-[90vw] md:w-[70%] w-[90vw]",
 
           "rounded-[16px]",
           "backdrop-blur-[5px]",

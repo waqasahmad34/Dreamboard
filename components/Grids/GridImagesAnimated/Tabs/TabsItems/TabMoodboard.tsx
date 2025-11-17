@@ -95,8 +95,7 @@ const TabMoodboard = ({
             className3ImageWrapper,
             "relative",
             "w-[calc(50%-10px)] lg:w-full",
-            "max-h-[280px]  h-full",
-            "min-[600px]:max-h-[400px]",
+            "h-full",
             "min-h-auto",
             "aspect-[2/3]"
           )}
@@ -108,7 +107,7 @@ const TabMoodboard = ({
           <Image
             src={mood_board_url}
             alt={`mood_board_url`}
-            className={cn("h-full w-full", "object-cover")}
+            className={cn("h-full w-full", "lg:object-cover")}
             fill
             // width={1535}
             // height={1024}
@@ -126,7 +125,7 @@ const TabMoodboard = ({
             "grow-1",
             // 'h-[200px]',
             "h-full lg:h-auto",
-            "lg:aspect-[3/2]",
+            "aspect-square",
             "w-[calc(50%-10px)] lg:w-full",
             className3ImageWrapper,
             "bg-white",
@@ -156,7 +155,7 @@ const TabMoodboard = ({
             />
             <div
               className={cn(
-                "absolute",
+                "absolute min-[1100px]:top-8",
                 "overflow-hidden",
                 "h-full",
                 "group-hover:scale-110",

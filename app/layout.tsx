@@ -13,6 +13,7 @@ import './fonts.css';
 import BottomBar from '@/components/BottomBar';
 import ButtonScrollTop from '@/components/Buttons/ButtonScrollTop';
 // import ScriptFreshChat from '@/components/Scripts/ScriptFreshChat';
+import ScriptClarity from '@/components/Scripts/ScriptClarity';
 import ScriptGTM from '@/components/Scripts/ScriptGTM/ScriptGTM';
 import ScriptGTMNoScript from '@/components/Scripts/ScriptGTM/ScriptGTMNoScript';
 
@@ -83,6 +84,7 @@ export default function RootLayout({
                 <>
                   <ScriptGTM />
                   <ScriptGTMNoScript />
+                  <ScriptClarity />
                 </>
               ) 
               // : (

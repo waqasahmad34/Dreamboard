@@ -50,8 +50,8 @@ const GridImagesAnimated = ({
         "GridImagesAnimated",
         "bg-white backdrop-blur-[16px]",
         "rounded-[16px]",
-        "grid grid-cols-1 lg:grid-cols-12 lg:w-[92vw] sm:h-full lg:h-[70vh] max-h-[720px] lg:max-h-[620px] xl:max-h-[720px] lg:max-w-max",
-        " lg:gap-[20px]",
+        "grid grid-cols-1 lg:grid-cols-12",
+        "w-full lg:gap-[20px]",
         "p-[20px]",
         // "overflow-hidden",
         // 'w-[90vw]',
@@ -65,12 +65,12 @@ const GridImagesAnimated = ({
       {/* LEFT AREA / TOP */}
       <div
         className={cn(
-          "relative",
+          "relative lg:aspect-[16/10]",
           "flex flex-col",
           "shrink-0",
           "lg:rounded-[16px]",
-          "w-full lg:w-fit",
-          " h-full lg:col-span-8",
+          "w-full",
+          "h-full col-span-8 xl:col-span-9",
           // 'overflow-hidden',
           // 'w-[80%]',
           // "aspect-[3/2]"
@@ -139,7 +139,7 @@ const GridImagesAnimated = ({
       <div
         className={cn(
           "flex items-start justify-between",
-          " lg:col-span-4 lg:w-full lg:max-h-none  max-h-[300px] lg:h-full",
+          "col-span-4 xl:col-span-3 lg:w-full lg:max-h-none  max-h-[300px] lg:h-full",
           "flex-row lg:flex-col ",
           "shrink-0",
           "gap-[20px]",

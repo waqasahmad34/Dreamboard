@@ -24,8 +24,8 @@ const ListSquareItems = ({
         <li
           key={`${item?.color ?? item?.image}-${index}`}
           className={cn(
-            'h-[40px] w-[40px]',
-            'md:h-[25px] md:w-[25px]',
+            'h-[25px] w-[25px]',
+            'sm:h-[35px] md:w-[35px]',
             'lg:h-[40px] lg:w-[40px]',
             'rounded-[5px] lg:rounded-[9px]',
             'shrink-0 grow-0',

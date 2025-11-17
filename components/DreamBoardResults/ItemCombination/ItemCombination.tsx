@@ -256,12 +256,12 @@ const ItemCombination = ({
 				</div>
 			)} */}
 
-      <GridWithBoxes
+      {/* <GridWithBoxes
         className="ProductAndRoomSlider"
         data={dataGridObject}
         productMetadata={productMetadata}
         swatchMetadata={swatchMetadata}
-      />
+      /> */}
       <div
         className={cn(
           "SwatchAndRoomGrid",
