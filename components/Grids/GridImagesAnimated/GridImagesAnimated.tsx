@@ -147,7 +147,7 @@ const GridImagesAnimated = ({
       <div
         className={cn(
           "flex items-start justify-between",
-          "col-span-4 xl:col-span-3 lg:w-full lg:max-h-none  max-h-[300px] lg:h-full",
+          "col-span-4 xl:col-span-3 lg:w-full lg:max-h-none max-h-[400px] lg:h-full",
           "flex-row lg:flex-col ",
           "shrink-0",
           "gap-[20px]",
