@@ -7,7 +7,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useComments } from "@/hooks/useComments";
+import { useCommentCountQuery } from "@/queries/comments.queries";
+import { useCreateCommentMutation } from "@/queries/comments.mutations";
 import cn from "@/utils/cn";
 
 type TBadgeReactionProps = {
@@ -18,23 +19,46 @@ type TBadgeReactionProps = {
 type TComponentProps = {
   setTab: (tab: number) => void;
   className: string;
+  combinationId?: string;
+  sessionId?: string;
 };
 
-const ButtonComments = ({ setTab, className }: TComponentProps) => {
+const ButtonComments = ({ setTab, className, combinationId, sessionId }: TComponentProps) => {
   const [isCommentsPopoverOpen, setIsCommentsPopoverOpen] =
     useState<boolean>(false);
   const [commentInput, setCommentInput] = useState<string>("");
+ 
+  // Ensure IDs are strings
+  const combinationIdString = combinationId ? String(combinationId) : undefined;
+  const sessionIdString = sessionId ? String(sessionId) : undefined;
 
-  // Get comment functionality from the useComments hook
-  const { commentsCount, addComment, isSubmitting } = useComments({
-    sortOrder: "asc",
+  // Use TanStack Query for comment count with automatic caching and refetching
+  const { data: commentCount = 0 } = useCommentCountQuery({
+    sessionId: sessionIdString,
+    combinationId: combinationIdString,
+    enabled: !!sessionIdString || !!combinationIdString,
   });
 
+  // Use TanStack Query mutation for creating comments
+  const createCommentMutation = useCreateCommentMutation();
+
   const handleCommentSubmit = async () => {
-    if (!commentInput.trim() || isSubmitting) return;
+    if (!commentInput.trim() || createCommentMutation.isPending) return;
 
     try {
-      await addComment(commentInput);
+      // Generate unique ID for the comment
+      const timestamp = Date.now();
+      const random = Math.random().toString(36).substring(2, 9);
+      const id = `comment_${timestamp}_${random}`;
+
+      await createCommentMutation.mutateAsync({
+        id,
+        author: 'You',
+        content: commentInput.trim(),
+        sessionId: sessionIdString,
+        combinationId: combinationIdString,
+      });
+      
       setCommentInput(""); // Clear input after successful submission
     } catch (error) {
       console.error("Failed to submit comment:", error);
@@ -99,7 +123,7 @@ const ButtonComments = ({ setTab, className }: TComponentProps) => {
             className={cn("h-[10px] w-[10px] lg:h-[16px] lg:w-[16px]")}
           />
           <BadgeReaction
-            count={commentsCount}
+            count={commentCount}
             className="bg-white text-black shadow-md"
           />
           <span className="sr-only">Comments</span>
@@ -126,17 +150,17 @@ const ButtonComments = ({ setTab, className }: TComponentProps) => {
             onKeyPress={handleKeyPress}
             placeholder="What do you think about this design?"
             className={cn("w-full text-[12px] lg:text-[16px]", "bg-white")}
-            disabled={isSubmitting}
+            disabled={createCommentMutation.isPending}
           />
           <button
             type="button"
             onClick={handleCommentSubmit}
-            disabled={!commentInput.trim() || isSubmitting}
+            disabled={!commentInput.trim() || createCommentMutation.isPending}
             className={cn(
               "ButtonSendComment",
               "rounded bg-primary px-3 py-1 text-white text-xs transition-colors",
               "hover:bg-primary/80",
-              !commentInput.trim() || isSubmitting
+              !commentInput.trim() || createCommentMutation.isPending
                 ? "cursor-not-allowed opacity-50"
                 : "cursor-pointer"
             )}

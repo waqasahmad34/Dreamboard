@@ -80,7 +80,7 @@ export default function RootLayout({
         <QueryProvider>
           <CommentsProvider>
             <SocialReactionsProvider>
-              {process.env.ENVIRONMENT === 'production' && (
+              {true  && (
                 <>
                   <ScriptGTM />
                   <ScriptGTMNoScript />

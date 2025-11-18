@@ -307,6 +307,7 @@ const ItemCombination = ({
               content={
                 <GridImagesAnimated
                   combination_id={combination_id}
+                  sessionId={sessionId}
                   data={dataPopupObject}
                   productMetadata={productMetadata}
                   swatchMetadata={swatchMetadata}
@@ -344,8 +345,11 @@ const ItemCombination = ({
                 className={cn("flex-row")}
                 idData={`combination-state-${combination_id}`}
                 idAnimation={`combination-animation-${combination_id}`}
+                type="combination"
+                sessionId={sessionId}
+                combinationId={combination_id}
               />
-              <ButtonComments className={cn()} setTab={() => {}} />
+              <ButtonComments combinationId={combination_id} sessionId={sessionId} className={cn()} setTab={() => {}} />
             </div>
             <FloatingReactions
               className=""
