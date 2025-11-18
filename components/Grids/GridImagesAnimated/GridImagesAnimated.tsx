@@ -120,6 +120,9 @@ const GridImagesAnimated = ({
             className={cn()}
             idData={`combination-state-${combination_id}`}
             idAnimation={`popup-animation-${combination_id}`}
+            type="combination"
+            sessionId={sessionId}
+            combinationId={combinationIdString}
           />
           <ButtonComments sessionId={sessionId} combinationId={combinationIdString} className={cn()} setTab={setTab} />
         </div>

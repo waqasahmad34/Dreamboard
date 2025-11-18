@@ -33,7 +33,7 @@ const ButtonComments = ({ setTab, className, combinationId, sessionId }: TCompon
   const sessionIdString = sessionId ? String(sessionId) : undefined;
 
   // Get comment functionality from the useComments hook (for adding comments)
-  const { addComment, isSubmitting } = useComments({
+  const { addComment, isSubmitting, commentsCount } = useComments({
     sortOrder: "asc",
     combinationId: combinationIdString,
     sessionId: sessionIdString,
@@ -63,6 +63,11 @@ const ButtonComments = ({ setTab, className, combinationId, sessionId }: TCompon
   useEffect(() => {
     fetchCommentCount();
   }, [fetchCommentCount]);
+
+  // Refetch count when global commentsCount changes (tracks all comment additions/deletions)
+  useEffect(() => {
+    fetchCommentCount();
+  }, [commentsCount, fetchCommentCount]);
 
   const handleCommentSubmit = async () => {
     if (!commentInput.trim() || isSubmitting) return;

@@ -15,6 +15,14 @@ type TComponentProps = {
   idData?: string; // ID for state management
   idAnimation?: string; // ID for animation rendering (defaults to idData if not provided)
   classNameFloatingIcon?: string;
+  // API Integration props
+  type?: "comment" | "combination"; // Type of reaction
+  commentId?: string; // For comment reactions
+  sessionId?: string; // For combination reactions
+  combinationId?: string; // For combination reactions
+  initialLikes?: number; // Initial like count
+  initialDislikes?: number; // Initial dislike count
+  onReactionUpdate?: (likes: number, dislikes: number) => void; // Callback when reaction counts change
 };
 
 const SocialReactions = ({
@@ -24,6 +32,13 @@ const SocialReactions = ({
   idData = "default", // Default ID if not provided
   idAnimation, // ID for animation rendering
   classNameFloatingIcon,
+  type,
+  commentId,
+  sessionId,
+  combinationId,
+  initialLikes,
+  initialDislikes,
+  onReactionUpdate,
 }: TComponentProps) => {
   // Use idAnimation if provided, otherwise fall back to idData
   const effectiveAnimationId = idAnimation || idData;
@@ -36,12 +51,57 @@ const SocialReactions = ({
     setScopedReactionButtonsDisabled,
     incrementScopedLikeCount,
     incrementScopedDislikeCount,
+    setScopedState,
   } = useSocialReactions();
 
   // Initialize the scoped state when component mounts
   useEffect(() => {
     initializeScopedState(idData);
-  }, [idData, initializeScopedState]);
+    
+    // Set initial counts if provided
+    if (initialLikes !== undefined || initialDislikes !== undefined) {
+      setScopedState(idData, {
+        likeCount: initialLikes || 0,
+        dislikeCount: initialDislikes || 0,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idData, initialLikes, initialDislikes]);
+
+  // Fetch initial counts from API
+  useEffect(() => {
+    const fetchReactionCounts = async () => {
+      if (!type) return; // No API integration if type not specified
+
+      try {
+        let response;
+        
+        if (type === "comment" && commentId) {
+          // For comments, we get counts from the comment itself
+          // This would be fetched when loading comments
+          return;
+        } else if (type === "combination" && sessionId && combinationId) {
+          // Fetch combination reactions
+          response = await fetch(
+            `/your-dreamboard-results/api/combination-reactions?sessionId=${sessionId}&combinationId=${combinationId}`
+          );
+          
+          if (response.ok) {
+            const data = await response.json();
+            setScopedState(idData, {
+              likeCount: data.reaction.likes,
+              dislikeCount: data.reaction.dislikes,
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch reaction counts:", error);
+      }
+    };
+
+    fetchReactionCounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type, commentId, sessionId, combinationId, idData]);
 
   // Get scoped state for this component
   const { isReactionButtonsDisabled, likeCount, dislikeCount } =
@@ -85,7 +145,7 @@ const SocialReactions = ({
   ];
 
   // HANDLERS
-  const sendReaction = (reaction: string) => {
+  const sendReaction = async (reaction: string) => {
     // https://emojipedia.org/heart-suit
     if (isReactionButtonsDisabled) return; // Prevent multiple clicks during cooldown
 
@@ -100,11 +160,78 @@ const SocialReactions = ({
       angry: "😡",
     };
 
-    // Update count based on reaction type
-    if (["like", "heart", "smile", "love", "laugh"].includes(reaction)) {
+    // Determine if this is a like or dislike
+    const isLike = ["like", "heart", "smile", "love", "laugh"].includes(reaction);
+    const reactionType = isLike ? "like" : "dislike";
+
+    // Optimistically update count based on reaction type
+    if (isLike) {
       incrementScopedLikeCount(idData);
-    } else if (["dislike", "sad", "angry"].includes(reaction)) {
+    } else {
       incrementScopedDislikeCount(idData);
+    }
+
+    // Send to API if type is specified
+    if (type) {
+      try {
+        let response;
+        
+        if (type === "comment" && commentId) {
+          // Add reaction to comment
+          response = await fetch(`/your-dreamboard-results/api/comments/${commentId}/reactions`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ type: reactionType }),
+          });
+        } else if (type === "combination" && sessionId && combinationId) {
+          // Add reaction to combination
+          response = await fetch("/your-dreamboard-results/api/combination-reactions", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              sessionId,
+              combinationId,
+              type: reactionType,
+            }),
+          });
+        }
+
+        if (response && response.ok) {
+          const data = await response.json();
+          
+          // Get counts based on response structure
+          let likes, dislikes;
+          if (type === "combination" && data.reaction) {
+            // Combination reactions return { reaction: { likes, dislikes } }
+            likes = data.reaction.likes;
+            dislikes = data.reaction.dislikes;
+          } else {
+            // Comment reactions return { likes, dislikes }
+            likes = data.likes;
+            dislikes = data.dislikes;
+          }
+          
+          // Update with actual counts from server
+          console.log(`🎉 Updated reaction counts for ${idData}:`, { likes, dislikes });
+          setScopedState(idData, {
+            likeCount: likes,
+            dislikeCount: dislikes,
+          });
+          
+          // Call callback if provided
+          if (onReactionUpdate) {
+            onReactionUpdate(likes, dislikes);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to send reaction to API:", error);
+        // Revert optimistic update on error
+        if (isLike) {
+          setScopedState(idData, { likeCount: likeCount - 1 });
+        } else {
+          setScopedState(idData, { dislikeCount: dislikeCount - 1 });
+        }
+      }
     }
 
     // Disable the button for 3 seconds

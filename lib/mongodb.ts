@@ -1,10 +1,8 @@
 import { MongoClient, ServerApiVersion, type Db } from "mongodb";
+import mongoose from "mongoose";
 
-if (!process.env.MONGODB_URI) {
-	throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
-}
 
-const uri = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI!;
 const options = {
 	serverApi: {
 		version: ServerApiVersion.v1,
@@ -21,6 +19,7 @@ if (process.env.NODE_ENV === "development") {
 	// is preserved across module reloads caused by HMR (Hot Module Replacement).
 	const globalWithMongo = global as typeof globalThis & {
 		_mongoClientPromise?: Promise<MongoClient>;
+		_mongooseConnection?: typeof mongoose;
 	};
 
 	if (!globalWithMongo._mongoClientPromise) {
@@ -38,28 +37,45 @@ if (process.env.NODE_ENV === "development") {
 // separate module, the client can be shared across functions.
 export default clientPromise;
 
+
 /**
- * Get the database instance
- * @param dbName - Optional database name, defaults to MONGODB_DB env variable
+ * Connect to MongoDB using Mongoose
+ * Handles connection caching in development to prevent connection overload
  */
-export async function getDatabase(dbName?: string): Promise<Db> {
-	const client = await clientPromise;
-	const database = dbName || process.env.MONGODB_DB || "dreamsofa-board";
-	return client.db(database);
+export async function connectMongoose(): Promise<typeof mongoose> {
+	// Check if already connected
+	if (mongoose.connection.readyState === 1) {
+		return mongoose;
+	}
+
+	const mongooseUri = `${uri}`;
+
+	if (process.env.NODE_ENV === "development") {
+		// In development, cache the connection in global to prevent multiple connections
+		const globalWithMongo = global as typeof globalThis & {
+			_mongooseConnection?: typeof mongoose;
+		};
+
+		if (!globalWithMongo._mongooseConnection) {
+			globalWithMongo._mongooseConnection = await mongoose.connect(mongooseUri);
+			console.log("✅ Mongoose connected to MongoDB (development)");
+		}
+		return globalWithMongo._mongooseConnection;
+	}
+
+	// In production, create a new connection
+	await mongoose.connect(mongooseUri);
+	console.log("✅ Mongoose connected to MongoDB (production)");
+	return mongoose;
 }
 
 /**
- * Test the MongoDB connection
+ * Disconnect Mongoose (useful for testing or graceful shutdown)
  */
-export async function testConnection(): Promise<boolean> {
-	try {
-		const client = await clientPromise;
-		await client.db("admin").command({ ping: 1 });
-		console.log("✅ Successfully connected to MongoDB!");
-		return true;
-	} catch (error) {
-		console.error("❌ MongoDB connection failed:", error);
-		return false;
+export async function disconnectMongoose(): Promise<void> {
+	if (mongoose.connection.readyState !== 0) {
+		await mongoose.disconnect();
+		console.log("✅ Mongoose disconnected from MongoDB");
 	}
 }
 

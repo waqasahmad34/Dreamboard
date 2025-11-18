@@ -201,6 +201,10 @@ const Comments = ({
                       idAnimation={`comment-animation-${
                         comment.id || "unknown"
                       }`}
+                      type="comment"
+                      commentId={comment.id}
+                      initialLikes={comment.likes || 0}
+                      initialDislikes={comment.dislikes || 0}
                     />
                     {/* <ButtonGlassed onClick={() => () => {}}>
                     <FaShare

@@ -10,6 +10,8 @@ export type TComment = {
   avatar?: string;
   combinationId?: string | null;
   sessionId?: string | null;
+  likes?: number;
+  dislikes?: number;
 };
 
 // MongoDB document type (includes database-specific fields)
@@ -23,6 +25,8 @@ export type TCommentDocument = {
   avatar?: string | null;
   combinationId?: string | null;
   sessionId?: string | null;
+  likes: number;
+  dislikes: number;
   createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
@@ -40,5 +44,7 @@ export function toClientComment(doc: TCommentDocument): TComment {
     avatar: doc.avatar || undefined,
     combinationId: doc.combinationId || undefined,
     sessionId: doc.sessionId || undefined,
+    likes: doc.likes || 0,
+    dislikes: doc.dislikes || 0,
   };
 }
