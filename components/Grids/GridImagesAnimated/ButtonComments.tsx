@@ -1,5 +1,5 @@
 import { MessageCircle } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { LuSendHorizontal } from "react-icons/lu";
 import { Input } from "@/components/ui/input";
 import {
@@ -7,7 +7,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useComments } from "@/hooks/useComments";
+import { useCommentCountQuery } from "@/queries/comments.queries";
+import { useCreateCommentMutation } from "@/queries/comments.mutations";
 import cn from "@/utils/cn";
 
 type TBadgeReactionProps = {
@@ -26,57 +27,39 @@ const ButtonComments = ({ setTab, className, combinationId, sessionId }: TCompon
   const [isCommentsPopoverOpen, setIsCommentsPopoverOpen] =
     useState<boolean>(false);
   const [commentInput, setCommentInput] = useState<string>("");
-  const [localCommentsCount, setLocalCommentsCount] = useState<number>(0);
  
   // Ensure IDs are strings
   const combinationIdString = combinationId ? String(combinationId) : undefined;
   const sessionIdString = sessionId ? String(sessionId) : undefined;
 
-  // Get comment functionality from the useComments hook (for adding comments)
-  const { addComment, isSubmitting, commentsCount } = useComments({
-    sortOrder: "asc",
-    combinationId: combinationIdString,
+  // Use TanStack Query for comment count with automatic caching and refetching
+  const { data: commentCount = 0 } = useCommentCountQuery({
     sessionId: sessionIdString,
+    combinationId: combinationIdString,
+    enabled: !!sessionIdString || !!combinationIdString,
   });
 
-  // Fetch comment count for this specific combination
-  const fetchCommentCount = useCallback(async () => {
-    if (!sessionIdString && !combinationIdString) return;
-
-    try {
-      const params = new URLSearchParams();
-      if (sessionIdString) params.append('sessionId', sessionIdString);
-      if (combinationIdString) params.append('combinationId', combinationIdString);
-
-      const response = await fetch(`/your-dreamboard-results/api/comments?${params.toString()}`);
-      
-      if (response.ok) {
-        const data = await response.json();
-        setLocalCommentsCount(data.count || 0);
-      }
-    } catch (error) {
-      console.error('Failed to fetch comment count:', error);
-    }
-  }, [sessionIdString, combinationIdString]);
-
-  // Load comment count when component mounts or IDs change
-  useEffect(() => {
-    fetchCommentCount();
-  }, [fetchCommentCount]);
-
-  // Refetch count when global commentsCount changes (tracks all comment additions/deletions)
-  useEffect(() => {
-    fetchCommentCount();
-  }, [commentsCount, fetchCommentCount]);
+  // Use TanStack Query mutation for creating comments
+  const createCommentMutation = useCreateCommentMutation();
 
   const handleCommentSubmit = async () => {
-    if (!commentInput.trim() || isSubmitting) return;
+    if (!commentInput.trim() || createCommentMutation.isPending) return;
 
     try {
-      await addComment(commentInput);
+      // Generate unique ID for the comment
+      const timestamp = Date.now();
+      const random = Math.random().toString(36).substring(2, 9);
+      const id = `comment_${timestamp}_${random}`;
+
+      await createCommentMutation.mutateAsync({
+        id,
+        author: 'You',
+        content: commentInput.trim(),
+        sessionId: sessionIdString,
+        combinationId: combinationIdString,
+      });
+      
       setCommentInput(""); // Clear input after successful submission
-      // Refresh count after adding comment
-      await fetchCommentCount();
     } catch (error) {
       console.error("Failed to submit comment:", error);
     }
@@ -140,7 +123,7 @@ const ButtonComments = ({ setTab, className, combinationId, sessionId }: TCompon
             className={cn("h-[10px] w-[10px] lg:h-[16px] lg:w-[16px]")}
           />
           <BadgeReaction
-            count={localCommentsCount}
+            count={commentCount}
             className="bg-white text-black shadow-md"
           />
           <span className="sr-only">Comments</span>
@@ -167,17 +150,17 @@ const ButtonComments = ({ setTab, className, combinationId, sessionId }: TCompon
             onKeyPress={handleKeyPress}
             placeholder="What do you think about this design?"
             className={cn("w-full text-[12px] lg:text-[16px]", "bg-white")}
-            disabled={isSubmitting}
+            disabled={createCommentMutation.isPending}
           />
           <button
             type="button"
             onClick={handleCommentSubmit}
-            disabled={!commentInput.trim() || isSubmitting}
+            disabled={!commentInput.trim() || createCommentMutation.isPending}
             className={cn(
               "ButtonSendComment",
               "rounded bg-primary px-3 py-1 text-white text-xs transition-colors",
               "hover:bg-primary/80",
-              !commentInput.trim() || isSubmitting
+              !commentInput.trim() || createCommentMutation.isPending
                 ? "cursor-not-allowed opacity-50"
                 : "cursor-pointer"
             )}

@@ -5,42 +5,57 @@ import type { TCommentDocument } from "@/types/TComment";
 
 /**
  * GET /api/comments
- * Fetch comments with optional filters
+ * Fetch comments with optional filters and pagination support
  * Query params:
  *  - sessionId: filter by session
  *  - combinationId: filter by combination
- *  - limit: number of comments to return (default: 50)
+ *  - limit: number of comments to return (default: 50, max for infinite queries: 10)
+ *  - cursor: timestamp cursor for pagination (optional, for infinite queries)
  */
 export async function GET(request: NextRequest) {
 	try {
 		const { searchParams } = new URL(request.url);
 		const sessionId = searchParams.get("sessionId");
 		const combinationId = searchParams.get("combinationId");
+		const cursor = searchParams.get("cursor");
 		const limit = Number.parseInt(searchParams.get("limit") || "50", 10);
 
 		// Connect to MongoDB using Mongoose
 		await connectMongoose();
 
-		// Build query filter
-		const filter: Record<string, unknown> = { isDeleted: false };
+		// Build base filter (without cursor for total count)
+		const baseFilter: Record<string, unknown> = { isDeleted: false };
 		
 		if (sessionId) {
-			filter.sessionId = sessionId;
+			baseFilter.sessionId = sessionId;
 		}
 		
 		if (combinationId) {
-			filter.combinationId = String(combinationId); // Ensure string
+			baseFilter.combinationId = String(combinationId); // Ensure string
 		}
 
-		// Fetch comments using Mongoose
+		// Build pagination filter (includes cursor)
+		const paginationFilter = { ...baseFilter };
+		if (cursor) {
+			paginationFilter.timestamp = { $lt: cursor };
+		}
+
+		// Fetch comments using Mongoose (fetch limit + 1 to check if there are more)
 		const comments = await Comment
-			.find(filter)
+			.find(paginationFilter)
 			.sort({ timestamp: -1 }) // Newest first
-			.limit(limit)
+			.limit(limit + 1) // Fetch one extra to determine if there's a next page
 			.lean(); // Convert to plain JavaScript objects
 
+		// Check if there are more comments
+		const hasMore = comments.length > limit;
+		const commentsToReturn = hasMore ? comments.slice(0, limit) : comments;
+
+		// Get total count of ALL comments (not affected by cursor)
+		const totalCount = await Comment.countDocuments(baseFilter);
+
 		// Convert to client format (remove MongoDB _id, keep our id)
-		const clientComments = comments.map((doc) => ({
+		const clientComments = commentsToReturn.map((doc) => ({
 			id: doc.id,
 			commentId: doc.commentId,
 			author: doc.author,
@@ -53,10 +68,18 @@ export async function GET(request: NextRequest) {
 			dislikes: doc.dislikes || 0,
 		}));
 
+		// Get next cursor (timestamp of last comment)
+		const nextCursor = hasMore && clientComments.length > 0 
+			? clientComments[clientComments.length - 1].timestamp 
+			: null;
+
 		return NextResponse.json({
 			success: true,
 			comments: clientComments,
-			count: clientComments.length,
+			count: totalCount, // Total count of all comments (not just this page)
+			pageCount: clientComments.length, // Count of comments in this page
+			nextCursor,
+			hasMore,
 		});
 	} catch (error) {
 		console.error("❌ Error fetching comments:", error);

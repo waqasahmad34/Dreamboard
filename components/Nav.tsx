@@ -1302,6 +1302,7 @@ const Nav = ({ className }: IComponentProps) => {
         {/* SEARCH / CART */}
         <div
           className={cn("flex items-center", "gap-[20px]", "mr-[20px] ml-auto")}
+          suppressHydrationWarning
         >
           {/* <button
             type="button"
