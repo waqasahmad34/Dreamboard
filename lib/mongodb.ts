@@ -2,7 +2,7 @@ import { MongoClient, ServerApiVersion, type Db } from "mongodb";
 import mongoose from "mongoose";
 
 
-const uri = process.env.MONGODB_URI! || "mongodb+srv://Waqasahmad_db_user:18pHZp8gZDvEsF8q@dreamsofa-board.rpq1whs.mongodb.net/?appName=DreamSofa-Board" 
+const uri = process.env.MONGODB_URI!
 const options = {
 	serverApi: {
 		version: ServerApiVersion.v1,
